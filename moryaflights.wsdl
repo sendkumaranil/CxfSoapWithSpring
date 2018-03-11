@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://cxfsoap.moryaairlines.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://resource.example.cxfsoap.com/" name="MoryaAirlinesImplService" targetNamespace="http://cxfsoap.moryaairlines.com/">
+  <wsdl:import location="http://localhost:8080/cxfsoap/moryaflights?wsdl=MoryaAirlines.wsdl" namespace="http://resource.example.cxfsoap.com/">
+    </wsdl:import>
+  <wsdl:binding name="MoryaAirlinesImplServiceSoapBinding" type="ns1:MoryaAirlines">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getBookingDetails">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getBookingDetails">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getBookingDetailsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getFlightDetails">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getFlightDetails">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getFlightDetailsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MoryaAirlinesImplService">
+    <wsdl:port binding="tns:MoryaAirlinesImplServiceSoapBinding" name="MoryaAirlinesImplPort">
+      <soap:address location="http://localhost:8080/cxfsoap/moryaflights"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
