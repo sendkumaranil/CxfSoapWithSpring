@@ -38,8 +38,13 @@ public class MoryaAirlinesService {
 				details.setDepartDate(request.getDepartDate());
 			} catch (ParseException e) {
 				e.printStackTrace();
-			}			
+			}	
+			if(details.getArriveTime().contains("24")) {
+				String str=details.getArriveTime();
+				details.setArriveTime(str.replace("24", "00"));
+			}
 		}
+		
 		flightDetailsResponse.setFlightdetails(flightDetails);
 		
 		return flightDetailsResponse;
@@ -58,7 +63,11 @@ public class MoryaAirlinesService {
 			response.setDuration(String.valueOf(diffHours));				
 		} catch (ParseException e) {
 			e.printStackTrace();
-		}		
+		}	
+		if(response.getArrivalTime().contains("24")) {
+			String str=response.getArrivalTime();
+			response.setArrivalTime(str.replace("24", "00"));
+		}
 		return response;
 	}
 }
