@@ -4,8 +4,13 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
+@XmlType(propOrder= {
+	"flightId","flightName","source","destination","depTime","arriveTime",
+	"duration","totalFare","departDate","totalStop","stopageAirports","fault"
+})
 public class FlightDetails {
 
 	private String flightId;

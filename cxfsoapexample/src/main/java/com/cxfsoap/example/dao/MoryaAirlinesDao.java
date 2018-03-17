@@ -12,5 +12,6 @@ public interface MoryaAirlinesDao {
 	public List<FlightDetails> getFlightDetails(FlightDetailsRequest request);
 	public void updateBookingDetail(BookingDetailsRequest request);
 	public BookingDetailsResponse getBookingDetails(BookingDetailsRequest request);
-
+	public List<String> fetchAllSources();
+	public List<String> fetchAllDestination();
 }

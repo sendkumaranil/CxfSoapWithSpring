@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cxfsoap.example.dao.MoryaAirlinesDao;
 import com.cxfsoap.example.mappers.BookingDetailsRowMapper;
 import com.cxfsoap.example.mappers.FlightDetailsRowMapper;
+import com.cxfsoap.example.mappers.SourcesDestinationMapper;
 import com.cxfsoap.example.model.BookingDetailsRequest;
 import com.cxfsoap.example.model.BookingDetailsResponse;
 import com.cxfsoap.example.model.FlightDetailsRequest;
@@ -71,5 +72,15 @@ public class MoryaAirlinesDaoImpl  implements MoryaAirlinesDao{
 		};
 		
 		return jdbcTemplate.queryForObject(fetchBookingDetailSql, params, new BookingDetailsRowMapper());
+	}
+	@Override
+	public List<String> fetchAllSources() {
+		String fetchAllSourcesSql="select distinct(sources) as sourdest from moryaflights.flightsdetails";
+		return jdbcTemplate.query(fetchAllSourcesSql, new SourcesDestinationMapper());
+	}
+	@Override
+	public List<String> fetchAllDestination() {
+		String fetchAllDestinationSql="select distinct(destination) as sourdest from moryaflights.flightsdetails";
+		return jdbcTemplate.query(fetchAllDestinationSql, new SourcesDestinationMapper());
 	}
 }

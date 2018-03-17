@@ -1,5 +1,10 @@
 package com.cxfsoap.example.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlRootElement
+@XmlType(propOrder= {"errorCode","errSeverity","description"})
 public class ErrorResponse {
 
 	private String errorCode;
