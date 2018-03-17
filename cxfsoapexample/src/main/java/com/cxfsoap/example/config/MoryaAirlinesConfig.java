@@ -11,6 +11,7 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
@@ -38,5 +39,12 @@ public class MoryaAirlinesConfig {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		jdbcTemplate.setResultsMapCaseInsensitive(true);
 		return jdbcTemplate;
+	}
+	
+	@Bean
+	public DataSourceTransactionManager txManager(DataSource dataSource) {
+		DataSourceTransactionManager dataSourceTxManager=new DataSourceTransactionManager();
+		dataSourceTxManager.setDataSource(dataSource);
+		return dataSourceTxManager;
 	}
 }

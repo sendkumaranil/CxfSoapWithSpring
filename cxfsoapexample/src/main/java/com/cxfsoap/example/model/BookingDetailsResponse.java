@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class BookingDetailsResponse {
 
+	private String bookingDate;
 	private String flightId;
 	private String flightName;
 	private String deptTime;	
@@ -17,6 +18,7 @@ public class BookingDetailsResponse {
 	private String travelClass;
 	private String departDate;
 	private String boardingAirport;
+	private String arrivalAirport;
 	private Integer stops;
 	private List<String> stopageAirports;
 	private Integer noOfAdults;
@@ -24,6 +26,7 @@ public class BookingDetailsResponse {
 	private String govtIdentityId;
 	private String govtIdentityType;
 	private String description;
+	private String passengerName;
 	private ErrorResponse fault;
 	
 	public String getFlightId() {
@@ -128,4 +131,23 @@ public class BookingDetailsResponse {
 	public void setFault(ErrorResponse fault) {
 		this.fault = fault;
 	}
+	public String getPassengerName() {
+		return passengerName;
+	}
+	public void setPassengerName(String passengerName) {
+		this.passengerName = passengerName;
+	}
+	public String getBookingDate() {
+		return bookingDate;
+	}
+	public void setBookingDate(String bookingDate) {
+		this.bookingDate = bookingDate;
+	}
+	public String getArrivalAirport() {
+		return arrivalAirport;
+	}
+	public void setArrivalAirport(String arrivalAirport) {
+		this.arrivalAirport = arrivalAirport;
+	}
+	
 }

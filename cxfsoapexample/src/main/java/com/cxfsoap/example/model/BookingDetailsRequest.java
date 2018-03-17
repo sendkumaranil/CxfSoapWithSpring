@@ -7,11 +7,12 @@ public class BookingDetailsRequest {
 
 	private String flightId;
 	private String departDate;
-	private String noOfAdults;
-	private String noOfChildren;
+	private int noOfAdults;
+	private int noOfChildren;
 	private String travelClass;
 	private String govtIdentityId;
 	private String govtIdentityType;
+	private String passengerName;
 	public String getFlightId() {
 		return flightId;
 	}
@@ -24,16 +25,16 @@ public class BookingDetailsRequest {
 	public void setDepartDate(String departDate) {
 		this.departDate = departDate;
 	}
-	public String getNoOfAdults() {
+	public int getNoOfAdults() {
 		return noOfAdults;
 	}
-	public void setNoOfAdults(String noOfAdults) {
+	public void setNoOfAdults(int noOfAdults) {
 		this.noOfAdults = noOfAdults;
 	}
-	public String getNoOfChildren() {
+	public int getNoOfChildren() {
 		return noOfChildren;
 	}
-	public void setNoOfChildren(String noOfChildren) {
+	public void setNoOfChildren(int noOfChildren) {
 		this.noOfChildren = noOfChildren;
 	}
 	public String getTravelClass() {
@@ -54,4 +55,11 @@ public class BookingDetailsRequest {
 	public void setGovtIdentityType(String govtIdentityType) {
 		this.govtIdentityType = govtIdentityType;
 	}
+	public String getPassengerName() {
+		return passengerName;
+	}
+	public void setPassengerName(String passengerName) {
+		this.passengerName = passengerName;
+	}
+	
 }

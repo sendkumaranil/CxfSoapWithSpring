@@ -7,7 +7,7 @@ public class FlightDetailsRequest {
 
 	private String source;
 	private String destination;
-	private String departTime;
+	private String departDate;
 	
 	public String getSource() {
 		return source;
@@ -21,10 +21,10 @@ public class FlightDetailsRequest {
 	public void setDestination(String destination) {
 		this.destination = destination;
 	}
-	public String getDepartTime() {
-		return departTime;
+	public String getDepartDate() {
+		return departDate;
 	}
-	public void setDepartTime(String departTime) {
-		this.departTime = departTime;
+	public void setDepartDate(String departDate) {
+		this.departDate = departDate;
 	}
 }
