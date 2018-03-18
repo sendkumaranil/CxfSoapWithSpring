@@ -2,7 +2,6 @@ package com.cxfsoap.example.resource.impl;
 
 import javax.jws.WebService;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.cxfsoap.example.model.BookingDetailsRequest;

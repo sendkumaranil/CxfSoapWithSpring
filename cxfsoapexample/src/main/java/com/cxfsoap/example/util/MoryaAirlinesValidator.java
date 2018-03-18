@@ -24,9 +24,19 @@ public class MoryaAirlinesValidator {
 			
 	public FlightDetailsResponse validateSourceDestination(FlightDetailsRequest request) {
 		FlightDetailsResponse validationResponse=new FlightDetailsResponse();
+		
+		ErrorResponse faultDetails=null;
+		if(request.getSource().equalsIgnoreCase(request.getDestination())) {
+			faultDetails=new ErrorResponse();
+			faultDetails.setErrorCode("SAME_SOURCE_DESTINATION");
+			faultDetails.setDescription("Invalid source or destination,source and destination can not be same!");
+			faultDetails.setErrSeverity(ErrorSeverity.NORMAL);
+			validationResponse.setFaultDetails(faultDetails);
+			return validationResponse;
+		}
+		
 		List<String> sources=daoService.fetchAllSources();
 		List<String> destinations=daoService.fetchAllDestination();
-		ErrorResponse faultDetails=null;
 		if(!sources.contains(request.getSource().toUpperCase())
 				||!destinations.contains(request.getDestination().toUpperCase())) {
 			faultDetails=new ErrorResponse();
