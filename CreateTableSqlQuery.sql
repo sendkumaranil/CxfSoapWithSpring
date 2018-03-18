@@ -15,17 +15,18 @@ CREATE TABLE `flightsdetails` (
 CREATE TABLE `bookingdetails` (
   `bookingid` int(11) NOT NULL AUTO_INCREMENT,
   `bookingdate` varchar(25) DEFAULT NULL,
-  `flightid` varchar(25) DEFAULT NULL,
-  `traveldate` varchar(25) DEFAULT NULL,
+  `flightid` varchar(25) NOT NULL,
+  `traveldate` varchar(25) NOT NULL,
   `boardingairport` varchar(100) DEFAULT NULL,
   `arrivalairport` varchar(100) DEFAULT NULL,
-  `passengername` varchar(25) DEFAULT NULL,
-  `govtid` varchar(25) DEFAULT NULL,
+  `passengername` varchar(255) DEFAULT NULL,
+  `govtid` varchar(25) NOT NULL,
   `govtidtype` varchar(25) DEFAULT NULL,
   `travelclass` varchar(25) DEFAULT NULL,
   `adults` int(11) DEFAULT NULL,
   `children` int(11) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`bookingid`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+  `totalFare` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`bookingid`,`flightid`,`traveldate`,`govtid`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 

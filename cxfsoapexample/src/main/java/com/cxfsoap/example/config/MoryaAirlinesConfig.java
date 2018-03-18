@@ -17,7 +17,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 @Configuration
 @ComponentScan(basePackages="com.cxfsoap.example")
 @ImportResource({"classpath:cxf.xml"})
-@PropertySource(value = { "classpath:application.properties" })
+@PropertySource(value = { "classpath:application.properties"})
 public class MoryaAirlinesConfig {
 
 	@Autowired

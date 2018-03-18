@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.cxfsoap.example.model.BookingDetailsResponse;
+import com.cxfsoap.example.model.PassengerList;
 
 public class BookingDetailsRowMapper implements RowMapper<BookingDetailsResponse> {
 
@@ -29,7 +30,11 @@ public class BookingDetailsRowMapper implements RowMapper<BookingDetailsResponse
 			List<String> stopageAirports=Arrays.asList(stopageAirport.split(","));
 			response.setStopageAirports(stopageAirports);
 		}			
-		response.setPassengerName(rs.getString("passengername"));
+		String passengers=rs.getString("passengername");
+		List<String> names=Arrays.asList(passengers.split(","));
+		PassengerList passengerList=new PassengerList();
+		passengerList.setName(names);
+		response.setPassengerList(passengerList);
 		response.setGovtIdentityId(rs.getString("govtid"));
 		response.setGovtIdentityType(rs.getString("govtidtype"));
 		response.setNoOfAdults(rs.getInt("adults"));

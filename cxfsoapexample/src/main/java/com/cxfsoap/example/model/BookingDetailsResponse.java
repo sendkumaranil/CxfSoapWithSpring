@@ -4,8 +4,13 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
+@XmlType(propOrder= {"fault","bookingDate","flightId","flightName","deptTime",
+		"arrivalTime","duration","totalFare","travelClass","departDate","boardingAirport",
+		"arrivalAirport","stops","stopageAirports","noOfAdults","noOfChildren","govtIdentityId",
+		"govtIdentityType","passengerList","description"})
 public class BookingDetailsResponse {
 
 	private String bookingDate;
@@ -26,7 +31,7 @@ public class BookingDetailsResponse {
 	private String govtIdentityId;
 	private String govtIdentityType;
 	private String description;
-	private String passengerName;
+	private PassengerList passengerList;
 	private ErrorResponse fault;
 	
 	public String getFlightId() {
@@ -131,12 +136,7 @@ public class BookingDetailsResponse {
 	public void setFault(ErrorResponse fault) {
 		this.fault = fault;
 	}
-	public String getPassengerName() {
-		return passengerName;
-	}
-	public void setPassengerName(String passengerName) {
-		this.passengerName = passengerName;
-	}
+	
 	public String getBookingDate() {
 		return bookingDate;
 	}
@@ -149,5 +149,10 @@ public class BookingDetailsResponse {
 	public void setArrivalAirport(String arrivalAirport) {
 		this.arrivalAirport = arrivalAirport;
 	}
-	
+	public PassengerList getPassengerList() {
+		return passengerList;
+	}
+	public void setPassengerList(PassengerList passengerList) {
+		this.passengerList = passengerList;
+	}
 }

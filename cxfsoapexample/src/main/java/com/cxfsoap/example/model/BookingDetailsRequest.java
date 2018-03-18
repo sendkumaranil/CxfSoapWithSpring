@@ -1,5 +1,7 @@
 package com.cxfsoap.example.model;
 
+import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -12,7 +14,9 @@ public class BookingDetailsRequest {
 	private String travelClass;
 	private String govtIdentityId;
 	private String govtIdentityType;
-	private String passengerName;
+	private PassengerList passengerList;
+	private BigDecimal totalFare;
+	
 	public String getFlightId() {
 		return flightId;
 	}
@@ -55,11 +59,16 @@ public class BookingDetailsRequest {
 	public void setGovtIdentityType(String govtIdentityType) {
 		this.govtIdentityType = govtIdentityType;
 	}
-	public String getPassengerName() {
-		return passengerName;
+	public PassengerList getPassengerList() {
+		return passengerList;
 	}
-	public void setPassengerName(String passengerName) {
-		this.passengerName = passengerName;
+	public void setPassengerList(PassengerList passengerList) {
+		this.passengerList = passengerList;
 	}
-	
+	public BigDecimal getTotalFare() {
+		return totalFare;
+	}
+	public void setTotalFare(BigDecimal totalFare) {
+		this.totalFare = totalFare;
+	}
 }

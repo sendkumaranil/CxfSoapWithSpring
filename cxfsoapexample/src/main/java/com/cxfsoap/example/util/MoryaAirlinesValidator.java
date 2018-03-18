@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.cxfsoap.example.dao.MoryaAirlinesDao;
+import com.cxfsoap.example.model.BookingDetailsRequest;
+import com.cxfsoap.example.model.BookingDetailsResponse;
 import com.cxfsoap.example.model.DestinationList;
 import com.cxfsoap.example.model.ErrorResponse;
 import com.cxfsoap.example.model.ErrorSeverity;
@@ -58,5 +60,27 @@ public class MoryaAirlinesValidator {
 	      return false;
 	    }
 	    return true;              
+	}
+	public BookingDetailsResponse validateBookingDetails(BookingDetailsRequest request) {
+		BookingDetailsResponse validationResponse=new BookingDetailsResponse();
+		ErrorResponse faultDetails=null;
+		if(validateDate(request.getDepartDate())==Boolean.FALSE) {
+			faultDetails=new ErrorResponse();
+			faultDetails.setErrorCode("INVALID_DATE_FORMAT");
+			faultDetails.setDescription("Invalid date format,valid date format [dd-MM-YYYY]");
+			faultDetails.setErrSeverity(ErrorSeverity.NORMAL);
+			validationResponse.setFault(faultDetails);	
+			return validationResponse;
+		}
+		
+		if(daoService.validateFlightId(request)==0) {
+			faultDetails=new ErrorResponse();
+			faultDetails.setErrorCode("INVALID_FLIGHTID");
+			faultDetails.setDescription("Invalid flightid or seat not available");
+			faultDetails.setErrSeverity(ErrorSeverity.NORMAL);
+			validationResponse.setFault(faultDetails);
+			return validationResponse;
+		}
+		return null;
 	}
 }

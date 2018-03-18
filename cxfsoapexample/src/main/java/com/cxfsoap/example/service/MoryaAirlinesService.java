@@ -51,7 +51,10 @@ public class MoryaAirlinesService {
 	}
 
 	public BookingDetailsResponse getBookingDetails(BookingDetailsRequest request) {
-		daoService.updateBookingDetail(request);
+		
+		if(daoService.checkBookingExists(request) == 0) {
+			daoService.updateBookingDetail(request);
+		}		
 		BookingDetailsResponse response=daoService.getBookingDetails(request);
 		long arrivalTime;
 		long deptTime;

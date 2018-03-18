@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project id="a2e9406b-7ccc-4103-99e2-0ec7e27efb0b" activeEnvironment="Default" name="MoryaFlights" resourceRoot="" soapui-version="5.2.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="f305cf8f-857d-4ead-9270-df18466993b2" wsaVersion="NONE" name="MoryaAirlinesImplServiceSoapBinding" type="wsdl" bindingName="{http://cxfsoap.moryaairlines.com/}MoryaAirlinesImplServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/cxfsoap/moryaflights?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/cxfsoap/moryaflights?wsdl"><con:part><con:url>http://localhost:8080/cxfsoap/moryaflights?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="MoryaAirlinesImplService" targetNamespace="http://cxfsoap.moryaairlines.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://cxfsoap.moryaairlines.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://resource.example.cxfsoap.com/">
+<con:soapui-project id="f00e46aa-1ae0-4aab-8953-f548926c144b" activeEnvironment="Default" name="MoryaFlights" resourceRoot="" soapui-version="5.2.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="fe486deb-cf4b-4c1c-b3a6-3a755af762ee" wsaVersion="NONE" name="MoryaAirlinesImplServiceSoapBinding" type="wsdl" bindingName="{http://cxfsoap.moryaairlines.com/}MoryaAirlinesImplServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/cxfsoap/moryaflights?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/cxfsoap/moryaflights?wsdl"><con:part><con:url>http://localhost:8080/cxfsoap/moryaflights?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="MoryaAirlinesImplService" targetNamespace="http://cxfsoap.moryaairlines.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://cxfsoap.moryaairlines.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://resource.example.cxfsoap.com/">
   <wsdl:import location="http://localhost:8080/cxfsoap/moryaflights?wsdl=MoryaAirlines.wsdl" namespace="http://resource.example.cxfsoap.com/"></wsdl:import>
   <wsdl:binding name="MoryaAirlinesImplServiceSoapBinding" type="ns1:MoryaAirlines">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
@@ -32,6 +32,8 @@
     <xs:schema elementFormDefault="unqualified" targetNamespace="http://resource.example.cxfsoap.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://resource.example.cxfsoap.com/">
       <xs:element name="bookingDetailsRequest" type="tns:bookingDetailsRequest"/>
       <xs:element name="bookingDetailsResponse" type="tns:bookingDetailsResponse"/>
+      <xs:element name="destinationList" type="tns:destinationList"/>
+      <xs:element name="errorResponse" type="tns:errorResponse"/>
       <xs:element name="flightDetails" type="tns:flightDetails"/>
       <xs:element name="flightDetailsRequest" type="tns:flightDetailsRequest"/>
       <xs:element name="flightDetailsResponse" type="tns:flightDetailsResponse"/>
@@ -39,6 +41,7 @@
       <xs:element name="getBookingDetailsResponse" type="tns:getBookingDetailsResponse"/>
       <xs:element name="getFlightDetails" type="tns:getFlightDetails"/>
       <xs:element name="getFlightDetailsResponse" type="tns:getFlightDetailsResponse"/>
+      <xs:element name="sourceList" type="tns:sourceList"/>
       <xs:complexType name="getBookingDetails">
         <xs:sequence>
           <xs:element minOccurs="0" name="arg0" type="tns:bookingDetailsRequest"/>
@@ -52,8 +55,14 @@
           <xs:element minOccurs="0" name="govtIdentityType" type="xs:string"/>
           <xs:element name="noOfAdults" type="xs:int"/>
           <xs:element name="noOfChildren" type="xs:int"/>
-          <xs:element minOccurs="0" name="passengerName" type="xs:string"/>
+          <xs:element minOccurs="0" name="passengerList" type="tns:passengerList"/>
+          <xs:element minOccurs="0" name="totalFare" type="xs:decimal"/>
           <xs:element minOccurs="0" name="travelClass" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="passengerList">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="name" nillable="true" type="xs:string"/>
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="getBookingDetailsResponse">
@@ -63,33 +72,33 @@
       </xs:complexType>
       <xs:complexType name="bookingDetailsResponse">
         <xs:sequence>
-          <xs:element minOccurs="0" name="arrivalAirport" type="xs:string"/>
-          <xs:element minOccurs="0" name="arrivalTime" type="xs:string"/>
-          <xs:element minOccurs="0" name="boardingAirport" type="xs:string"/>
-          <xs:element minOccurs="0" name="bookingDate" type="xs:string"/>
-          <xs:element minOccurs="0" name="departDate" type="xs:string"/>
-          <xs:element minOccurs="0" name="deptTime" type="xs:string"/>
-          <xs:element minOccurs="0" name="description" type="xs:string"/>
-          <xs:element minOccurs="0" name="duration" type="xs:string"/>
           <xs:element minOccurs="0" name="fault" type="tns:errorResponse"/>
+          <xs:element minOccurs="0" name="bookingDate" type="xs:string"/>
           <xs:element minOccurs="0" name="flightId" type="xs:string"/>
           <xs:element minOccurs="0" name="flightName" type="xs:string"/>
-          <xs:element minOccurs="0" name="govtIdentityId" type="xs:string"/>
-          <xs:element minOccurs="0" name="govtIdentityType" type="xs:string"/>
-          <xs:element minOccurs="0" name="noOfAdults" type="xs:int"/>
-          <xs:element minOccurs="0" name="noOfChildren" type="xs:int"/>
-          <xs:element minOccurs="0" name="passengerName" type="xs:string"/>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="stopageAirports" nillable="true" type="xs:string"/>
-          <xs:element minOccurs="0" name="stops" type="xs:int"/>
+          <xs:element minOccurs="0" name="deptTime" type="xs:string"/>
+          <xs:element minOccurs="0" name="arrivalTime" type="xs:string"/>
+          <xs:element minOccurs="0" name="duration" type="xs:string"/>
           <xs:element minOccurs="0" name="totalFare" type="xs:decimal"/>
           <xs:element minOccurs="0" name="travelClass" type="xs:string"/>
+          <xs:element minOccurs="0" name="departDate" type="xs:string"/>
+          <xs:element minOccurs="0" name="boardingAirport" type="xs:string"/>
+          <xs:element minOccurs="0" name="arrivalAirport" type="xs:string"/>
+          <xs:element minOccurs="0" name="stops" type="xs:int"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="stopageAirports" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="noOfAdults" type="xs:int"/>
+          <xs:element minOccurs="0" name="noOfChildren" type="xs:int"/>
+          <xs:element minOccurs="0" name="govtIdentityId" type="xs:string"/>
+          <xs:element minOccurs="0" name="govtIdentityType" type="xs:string"/>
+          <xs:element minOccurs="0" name="passengerList" type="tns:passengerList"/>
+          <xs:element minOccurs="0" name="description" type="xs:string"/>
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="errorResponse">
         <xs:sequence>
-          <xs:element minOccurs="0" name="description" type="xs:string"/>
-          <xs:element minOccurs="0" name="errSeverity" type="tns:errorSeverity"/>
           <xs:element minOccurs="0" name="errorCode" type="xs:string"/>
+          <xs:element minOccurs="0" name="errSeverity" type="tns:errorSeverity"/>
+          <xs:element minOccurs="0" name="description" type="xs:string"/>
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="getFlightDetails">
@@ -111,23 +120,36 @@
       </xs:complexType>
       <xs:complexType name="flightDetailsResponse">
         <xs:sequence>
+          <xs:element minOccurs="0" name="faultDetails" type="tns:errorResponse"/>
+          <xs:element minOccurs="0" name="sourceList" type="tns:sourceList"/>
+          <xs:element minOccurs="0" name="destinationList" type="tns:destinationList"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="flightdetails" nillable="true" type="tns:flightDetails"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sourceList">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="sources" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="destinationList">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="destinations" nillable="true" type="xs:string"/>
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="flightDetails">
         <xs:sequence>
-          <xs:element minOccurs="0" name="arriveTime" type="xs:string"/>
-          <xs:element minOccurs="0" name="depTime" type="xs:string"/>
-          <xs:element minOccurs="0" name="departDate" type="xs:string"/>
-          <xs:element minOccurs="0" name="destination" type="xs:string"/>
-          <xs:element minOccurs="0" name="duration" type="xs:string"/>
-          <xs:element minOccurs="0" name="fault" type="tns:errorResponse"/>
           <xs:element minOccurs="0" name="flightId" type="xs:string"/>
           <xs:element minOccurs="0" name="flightName" type="xs:string"/>
           <xs:element minOccurs="0" name="source" type="xs:string"/>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="stopageAirports" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="destination" type="xs:string"/>
+          <xs:element minOccurs="0" name="depTime" type="xs:string"/>
+          <xs:element minOccurs="0" name="arriveTime" type="xs:string"/>
+          <xs:element minOccurs="0" name="duration" type="xs:string"/>
           <xs:element minOccurs="0" name="totalFare" type="xs:decimal"/>
+          <xs:element minOccurs="0" name="departDate" type="xs:string"/>
           <xs:element minOccurs="0" name="totalStop" type="xs:int"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="stopageAirports" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="fault" type="tns:errorResponse"/>
         </xs:sequence>
       </xs:complexType>
       <xs:simpleType name="errorSeverity">
@@ -161,42 +183,48 @@
       <wsdl:output message="ns1:getFlightDetailsResponse" name="getFlightDetailsResponse"></wsdl:output>
     </wsdl:operation>
   </wsdl:portType>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/cxfsoap/moryaflights</con:endpoint></con:endpoints><con:operation id="258ac566-593e-4c1e-88d7-f6e30b8023f6" isOneWay="false" action="" name="getBookingDetails" bindingOperationName="getBookingDetails" type="Request-Response" outputName="getBookingDetailsResponse" inputName="getBookingDetails" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="381a26eb-82fa-4799-ae54-f6c282621048" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/cxfsoap/moryaflights</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:res="http://resource.example.cxfsoap.com/">\r
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/cxfsoap/moryaflights</con:endpoint></con:endpoints><con:operation id="c1a9f1ba-8230-4481-8377-5cae08429d66" isOneWay="false" action="" name="getBookingDetails" bindingOperationName="getBookingDetails" type="Request-Response" outputName="getBookingDetailsResponse" inputName="getBookingDetails" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="7dd0f8f3-1a12-4cb0-a5e4-b0db256391dc" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/cxfsoap/moryaflights</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:res="http://resource.example.cxfsoap.com/">\r
    <soapenv:Header/>\r
    <soapenv:Body>\r
       <res:getBookingDetails>\r
          <!--Optional:-->\r
          <arg0>\r
             <!--Optional:-->\r
-            <departDate>12-04-2018</departDate>\r
+            <departDate>24-06-2018</departDate>\r
             <!--Optional:-->\r
-            <flightId>MORDELBANG003</flightId>\r
+            <flightId>MORBANGPUNE001</flightId>\r
             <!--Optional:-->\r
             <govtIdentityId>BDKPK8645A</govtIdentityId>\r
             <!--Optional:-->\r
             <govtIdentityType>PAN CARD</govtIdentityType>\r
-            <noOfAdults>1</noOfAdults>\r
+            <noOfAdults>2</noOfAdults>\r
             <noOfChildren>0</noOfChildren>\r
             <!--Optional:-->\r
-            <passengerName>Anil Kumar</passengerName>\r
+            <passengerList>\r
+               <!--Zero or more repetitions:-->\r
+               <name>Anil Kumar</name>\r
+               <name>Priya Kumar</name>
+            </passengerList>\r
+            <!--Optional:-->\r
+            <totalFare>4675.00</totalFare>\r
             <!--Optional:-->\r
             <travelClass>Economic</travelClass>\r
          </arg0>\r
       </res:getBookingDetails>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://cxfsoap.moryaairlines.com/MoryaAirlines/getBookingDetails"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="b3c3f486-0163-4414-8181-f1676f6e883d" isOneWay="false" action="" name="getFlightDetails" bindingOperationName="getFlightDetails" type="Request-Response" outputName="getFlightDetailsResponse" inputName="getFlightDetails" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="d3752b0c-b5c6-43f2-87e3-4bde2aadef00" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/cxfsoap/moryaflights</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:res="http://resource.example.cxfsoap.com/">\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://cxfsoap.moryaairlines.com/MoryaAirlines/getBookingDetails"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="95faa42a-e152-476d-8a0f-a740a3c4127f" isOneWay="false" action="" name="getFlightDetails" bindingOperationName="getFlightDetails" type="Request-Response" outputName="getFlightDetailsResponse" inputName="getFlightDetails" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="af809a14-d951-4100-9a5f-6c593dfeac3e" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/cxfsoap/moryaflights</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:res="http://resource.example.cxfsoap.com/">\r
    <soapenv:Header/>\r
    <soapenv:Body>\r
       <res:getFlightDetails>\r
          <!--Optional:-->\r
          <arg0>\r
             <!--Optional:-->\r
-            <departDate>12-04-2018</departDate>\r
+            <departDate>?</departDate>\r
             <!--Optional:-->\r
-            <destination>bangalore</destination>\r
+            <destination>?</destination>\r
             <!--Optional:-->\r
-            <source>delhi</source>\r
+            <source>?</source>\r
          </arg0>\r
       </res:getFlightDetails>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://cxfsoap.moryaairlines.com/MoryaAirlines/getFlightDetails"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://cxfsoap.moryaairlines.com/MoryaAirlines/getFlightDetails"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>
