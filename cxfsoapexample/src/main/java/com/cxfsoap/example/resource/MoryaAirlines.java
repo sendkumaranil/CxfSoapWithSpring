@@ -1,5 +1,7 @@
 package com.cxfsoap.example.resource;
 
+import java.text.ParseException;
+
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
@@ -12,8 +14,8 @@ import com.cxfsoap.example.model.FlightDetailsResponse;
 public interface MoryaAirlines {
 
 	@WebMethod
-	public FlightDetailsResponse getFlightDetails(FlightDetailsRequest request);
+	public FlightDetailsResponse getFlightDetails(FlightDetailsRequest request) throws ParseException;
 	
 	@WebMethod
-	public BookingDetailsResponse getBookingDetails(BookingDetailsRequest request);
+	public BookingDetailsResponse getBookingDetails(BookingDetailsRequest request) throws ParseException;
 }

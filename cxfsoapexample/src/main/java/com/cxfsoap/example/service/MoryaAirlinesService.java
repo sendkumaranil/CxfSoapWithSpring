@@ -22,7 +22,7 @@ public class MoryaAirlinesService {
 	@Autowired
 	private MoryaAirlinesDao daoService;
 	
-	public FlightDetailsResponse getFlightDetails(FlightDetailsRequest request) {
+	public FlightDetailsResponse getFlightDetails(FlightDetailsRequest request) throws ParseException {
 		
 		FlightDetailsResponse flightDetailsResponse =new FlightDetailsResponse();
 		List<FlightDetails> flightDetails=daoService.getFlightDetails(request);
@@ -37,7 +37,7 @@ public class MoryaAirlinesService {
 				details.setDuration(String.valueOf(diffHours));	
 				details.setDepartDate(request.getDepartDate());
 			} catch (ParseException e) {
-				e.printStackTrace();
+				throw e;
 			}	
 			if(details.getArriveTime().contains("24")) {
 				String str=details.getArriveTime();
@@ -50,7 +50,7 @@ public class MoryaAirlinesService {
 		return flightDetailsResponse;
 	}
 
-	public BookingDetailsResponse getBookingDetails(BookingDetailsRequest request) {
+	public BookingDetailsResponse getBookingDetails(BookingDetailsRequest request) throws ParseException {
 		
 		if(daoService.checkBookingExists(request) == 0) {
 			daoService.updateBookingDetail(request);
@@ -65,7 +65,7 @@ public class MoryaAirlinesService {
 			long diffHours = diff / (60 * 60 * 1000) % 24;
 			response.setDuration(String.valueOf(diffHours));				
 		} catch (ParseException e) {
-			e.printStackTrace();
+			throw e;
 		}	
 		if(response.getArrivalTime().contains("24")) {
 			String str=response.getArrivalTime();

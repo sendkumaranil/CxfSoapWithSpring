@@ -1,5 +1,7 @@
 package com.cxfsoap.example.resource.impl;
 
+import java.text.ParseException;
+
 import javax.jws.WebService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,7 @@ public class MoryaAirlinesImpl implements MoryaAirlines {
 	@Autowired
 	private MoryaAirlinesValidator validator;
 	
-	public FlightDetailsResponse getFlightDetails(FlightDetailsRequest request) {	
+	public FlightDetailsResponse getFlightDetails(FlightDetailsRequest request) throws ParseException {	
 		
 		FlightDetailsResponse validateResponse=validator.validateSourceDestination(request);
 		if(validateResponse != null) {
@@ -31,7 +33,7 @@ public class MoryaAirlinesImpl implements MoryaAirlines {
 		return service.getFlightDetails(request);
 	}
 
-	public BookingDetailsResponse getBookingDetails(BookingDetailsRequest request) {
+	public BookingDetailsResponse getBookingDetails(BookingDetailsRequest request) throws ParseException {
 		BookingDetailsResponse validateResponse=validator.validateBookingDetails(request);
 		if(validateResponse != null) {
 			return validateResponse;

@@ -79,8 +79,8 @@ public class MoryaAirlinesDaoImpl  implements MoryaAirlinesDao{
 			request.getFlightId(),
 			request.getDepartDate()
 		};
-		
-		return jdbcTemplate.queryForObject(fetchBookingDetailSql, params, new BookingDetailsRowMapper());
+		List<BookingDetailsResponse> response=jdbcTemplate.query(fetchBookingDetailSql, params, new BookingDetailsRowMapper());
+		return response.get(0);
 	}
 	@Override
 	public List<String> fetchAllSources() {
