@@ -19,6 +19,7 @@ public class BookingDetailsRowMapper implements RowMapper<BookingDetailsResponse
 		response.setFlightId(rs.getString("flightid"));
 		response.setFlightName(rs.getString("flightname"));
 		response.setDeptTime(rs.getString("depttime"));
+		response.setDepartDate(rs.getString("traveldate"));
 		response.setArrivalTime(rs.getString("arrivaltime"));
 		response.setBoardingAirport(rs.getString("boardingairport"));
 		response.setArrivalAirport(rs.getString("arrivalairport"));
@@ -40,6 +41,7 @@ public class BookingDetailsRowMapper implements RowMapper<BookingDetailsResponse
 		response.setNoOfAdults(rs.getInt("adults"));
 		response.setNoOfChildren(rs.getInt("children"));
 		response.setDescription(rs.getString("description"));
+		
 		return response;
 	}
 

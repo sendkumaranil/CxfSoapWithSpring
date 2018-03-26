@@ -4,21 +4,29 @@
      	xmlns:cxf="http://cxf.apache.org/core"
 		xmlns:jaxws="http://cxf.apache.org/jaxws"
 		xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+		xmlns:soap="http://cxf.apache.org/bindings/soap"
 		xsi:schemaLocation="
 			http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
 			http://www.springframework.org/schema/beans 
 			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://cxf.apache.org/bindings/soap 
+			http://cxf.apache.org/schemas/configuration/soap.xsd
 			http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
 			http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
 	<import resource="classpath:META-INF/cxf/cxf.xml"/>
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
 	<!-- @author:Anil Kumar -->
-   <jaxws:endpoint
+	<bean id="attachMentOutInterceptor" class="com.cxfsoap.example.util.AttachmenInterceptor"/>
+	 <cxf:bus>        
+        <cxf:outInterceptors>
+            <ref bean="attachMentOutInterceptor"/>
+       </cxf:outInterceptors>
+    </cxf:bus>
+    
+   	<jaxws:endpoint
        id="moryaFlightService"
        implementor="com.cxfsoap.example.resource.impl.MoryaAirlinesImpl"
-       address="/moryaflights" />
-
-	
-
+       address="/moryaflights" 
+     />
 </beans>

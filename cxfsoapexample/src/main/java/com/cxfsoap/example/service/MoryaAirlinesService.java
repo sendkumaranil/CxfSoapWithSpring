@@ -1,5 +1,6 @@
 package com.cxfsoap.example.service;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,6 +14,8 @@ import com.cxfsoap.example.model.BookingDetailsRequest;
 import com.cxfsoap.example.model.BookingDetailsResponse;
 import com.cxfsoap.example.model.FlightDetailsRequest;
 import com.cxfsoap.example.model.FlightDetailsResponse;
+import com.cxfsoap.example.util.PdfDocumentCreator;
+import com.itextpdf.text.DocumentException;
 import com.cxfsoap.example.model.FlightDetails;
 
 @Service
@@ -34,7 +37,7 @@ public class MoryaAirlinesService {
 				deptTime= formatter.parse(details.getDepTime()).getTime();
 				long diff=arrivalTime-deptTime;
 				long diffHours = diff / (60 * 60 * 1000) % 24;
-				details.setDuration(String.valueOf(diffHours));	
+				details.setDuration(String.valueOf(diffHours)+" Hours");	
 				details.setDepartDate(request.getDepartDate());
 			} catch (ParseException e) {
 				throw e;
@@ -50,12 +53,14 @@ public class MoryaAirlinesService {
 		return flightDetailsResponse;
 	}
 
-	public BookingDetailsResponse getBookingDetails(BookingDetailsRequest request) throws ParseException {
-		
+	public BookingDetailsResponse getBookingDetails(BookingDetailsRequest request) throws ParseException, DocumentException, IOException {
+		boolean isNewRecord=Boolean.FALSE;
 		if(daoService.checkBookingExists(request) == 0) {
-			daoService.updateBookingDetail(request);
+			daoService.updateBookingDetail(request);	
+			isNewRecord=Boolean.TRUE;
 		}		
 		BookingDetailsResponse response=daoService.getBookingDetails(request);
+		
 		long arrivalTime;
 		long deptTime;
 		try {
@@ -63,7 +68,7 @@ public class MoryaAirlinesService {
 			deptTime= formatter.parse(response.getDeptTime()).getTime();
 			long diff=arrivalTime-deptTime;
 			long diffHours = diff / (60 * 60 * 1000) % 24;
-			response.setDuration(String.valueOf(diffHours));				
+			response.setDuration(String.valueOf(diffHours)+" Hours");				
 		} catch (ParseException e) {
 			throw e;
 		}	
@@ -71,6 +76,15 @@ public class MoryaAirlinesService {
 			String str=response.getArrivalTime();
 			response.setArrivalTime(str.replace("24", "00"));
 		}
+		
+		if(isNewRecord) {
+			createBookingReciept(response);	
+		}	
+		
 		return response;
+	}
+
+	private void createBookingReciept(BookingDetailsResponse response) throws DocumentException, IOException {
+		PdfDocumentCreator.createPdfDocument("D:\\moryaflights\\reciepts\\", "D:\\moryaflights\\logo\\moryalogo.jpg", response);
 	}
 }

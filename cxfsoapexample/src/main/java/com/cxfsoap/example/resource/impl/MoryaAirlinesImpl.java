@@ -1,5 +1,6 @@
 package com.cxfsoap.example.resource.impl;
 
+import java.io.IOException;
 import java.text.ParseException;
 
 import javax.jws.WebService;
@@ -13,6 +14,7 @@ import com.cxfsoap.example.model.FlightDetailsResponse;
 import com.cxfsoap.example.resource.MoryaAirlines;
 import com.cxfsoap.example.service.MoryaAirlinesService;
 import com.cxfsoap.example.util.MoryaAirlinesValidator;
+import com.itextpdf.text.DocumentException;
 
 @WebService(endpointInterface="com.cxfsoap.example.resource.MoryaAirlines",
 targetNamespace="http://cxfsoap.moryaairlines.com/")
@@ -33,7 +35,7 @@ public class MoryaAirlinesImpl implements MoryaAirlines {
 		return service.getFlightDetails(request);
 	}
 
-	public BookingDetailsResponse getBookingDetails(BookingDetailsRequest request) throws ParseException {
+	public BookingDetailsResponse getBookingDetails(BookingDetailsRequest request) throws ParseException, DocumentException, IOException {
 		BookingDetailsResponse validateResponse=validator.validateBookingDetails(request);
 		if(validateResponse != null) {
 			return validateResponse;

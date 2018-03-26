@@ -3,6 +3,7 @@ package com.cxfsoap.example.resource.impl;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.text.ParseException;
 
 import org.junit.Test;
@@ -17,6 +18,7 @@ import com.cxfsoap.example.model.FlightDetailsRequest;
 import com.cxfsoap.example.model.FlightDetailsResponse;
 import com.cxfsoap.example.service.MoryaAirlinesService;
 import com.cxfsoap.example.util.MoryaAirlinesValidator;
+import com.itextpdf.text.DocumentException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MoryaAirlinesImplTest {
@@ -48,7 +50,7 @@ public class MoryaAirlinesImplTest {
 		assertNotNull(response);
 	}
 	@Test
-	public void getBookingDetailsTest() throws ParseException {
+	public void getBookingDetailsTest() throws ParseException, DocumentException, IOException {
 		BookingDetailsRequest request=new BookingDetailsRequest();
 		BookingDetailsResponse result=new BookingDetailsResponse();
 		when(validator.validateBookingDetails(request)).thenReturn(null);
@@ -57,7 +59,7 @@ public class MoryaAirlinesImplTest {
 		assertNotNull(response);
 	}
 	@Test
-	public void getBookingDetailsValidationFailedTest() throws ParseException {
+	public void getBookingDetailsValidationFailedTest() throws ParseException, DocumentException, IOException {
 		BookingDetailsRequest request=new BookingDetailsRequest();
 		BookingDetailsResponse result=new BookingDetailsResponse();
 		when(validator.validateBookingDetails(request)).thenReturn(result);		
