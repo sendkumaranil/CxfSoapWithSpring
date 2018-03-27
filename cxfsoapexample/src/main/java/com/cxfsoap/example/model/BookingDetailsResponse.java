@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder= {"fault","bookingDate","flightId","flightName","deptTime",
 		"arrivalTime","duration","totalFare","travelClass","departDate","boardingAirport",
 		"arrivalAirport","stops","stopageAirports","noOfAdults","noOfChildren","govtIdentityId",
-		"govtIdentityType","passengerList","description"})
+		"govtIdentityType","passengerList","description","fileContentId"})
 public class BookingDetailsResponse {
 
 	private String bookingDate;
@@ -32,6 +32,7 @@ public class BookingDetailsResponse {
 	private String govtIdentityType;
 	private String description;
 	private PassengerList passengerList;
+	private String fileContentId;
 	private ErrorResponse fault;
 	
 	public String getFlightId() {
@@ -154,5 +155,11 @@ public class BookingDetailsResponse {
 	}
 	public void setPassengerList(PassengerList passengerList) {
 		this.passengerList = passengerList;
+	}
+	public String getFileContentId() {
+		return fileContentId;
+	}
+	public void setFileContentId(String fileContentId) {
+		this.fileContentId = fileContentId;
 	}
 }

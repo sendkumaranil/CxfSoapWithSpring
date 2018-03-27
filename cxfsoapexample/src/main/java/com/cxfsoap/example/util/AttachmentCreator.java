@@ -3,6 +3,8 @@ package com.cxfsoap.example.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.activation.DataHandler;
 
@@ -11,14 +13,16 @@ import org.apache.cxf.attachment.ByteDataSource;
 
 public class AttachmentCreator {
 
+	private static Map<String,String> fileMetadamap=new HashMap<>();
+	
 	private AttachmentCreator() {}
 	
-	public static AttachmentImpl getAttachMents() throws IOException {
+	public static AttachmentImpl getAttachMents(String fileContentId) throws IOException {
 		String contentType="application/pdf";
-		byte[] fileBytes=getFileBytes("D:\\moryaflights\\reciepts\\MORDELBANG002BDKPK8645B_26-10-2018.pdf");
+		byte[] fileBytes=getFileBytes("D:\\moryaflights\\reciepts\\"+fileContentId+".pdf");
 		ByteDataSource fileDataSource=new ByteDataSource(fileBytes);
 		fileDataSource.setContentType(contentType);
-		AttachmentImpl attachment=new AttachmentImpl("billrecipt",new DataHandler(fileDataSource));
+		AttachmentImpl attachment=new AttachmentImpl(fileContentId,new DataHandler(fileDataSource));
 		attachment.setHeader("Content-Id", "billrecipt");
 		attachment.setHeader("Content-Transfer-Encoding", "binary");
 		attachment.setHeader("Content-Type", contentType);
@@ -35,4 +39,12 @@ public class AttachmentCreator {
 		}     
 		return bytesArray;
 	}
+
+	public static Map<String, String> getFileMetadamap() {
+		return fileMetadamap;
+	}
+
+	public static void setFileMetadamap(Map<String, String> fileMetadamap) {
+		AttachmentCreator.fileMetadamap = fileMetadamap;
+	}	
 }

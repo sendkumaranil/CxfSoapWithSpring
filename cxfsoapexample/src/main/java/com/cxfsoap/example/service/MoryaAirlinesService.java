@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import com.cxfsoap.example.model.BookingDetailsRequest;
 import com.cxfsoap.example.model.BookingDetailsResponse;
 import com.cxfsoap.example.model.FlightDetailsRequest;
 import com.cxfsoap.example.model.FlightDetailsResponse;
+import com.cxfsoap.example.util.AttachmentCreator;
 import com.cxfsoap.example.util.PdfDocumentCreator;
 import com.itextpdf.text.DocumentException;
 import com.cxfsoap.example.model.FlightDetails;
@@ -80,7 +83,11 @@ public class MoryaAirlinesService {
 		if(isNewRecord) {
 			createBookingReciept(response);	
 		}	
-		
+		String fileContentId=response.getFlightId()+response.getGovtIdentityId()+"_"+response.getDepartDate();
+		response.setFileContentId(fileContentId);
+		Map<String,String> fileMetadamap=new HashMap<>();
+		fileMetadamap.put("FILECONTENTID", fileContentId);
+		AttachmentCreator.setFileMetadamap(fileMetadamap);
 		return response;
 	}
 
