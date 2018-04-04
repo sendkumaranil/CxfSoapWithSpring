@@ -118,7 +118,7 @@ public class PdfDocumentCreator {
         PdfTemplate template = barcode128.createTemplateWithBarcode(
                 cb, BaseColor.BLACK, BaseColor.BLACK);
         float x = 35;
-        float y = 250;
+        float y = 230;
         float w = template.getWidth();
         float h = template.getHeight();
         cb.saveState();
@@ -126,7 +126,7 @@ public class PdfDocumentCreator {
         cb.rectangle(x, y, w, h);
         cb.fill();
         cb.restoreState();
-        cb.addTemplate(template, 35, 250);		
+        cb.addTemplate(template, 35, 230);		
 	}
 
 	private static void populateAddressContent(Document document) throws DocumentException {

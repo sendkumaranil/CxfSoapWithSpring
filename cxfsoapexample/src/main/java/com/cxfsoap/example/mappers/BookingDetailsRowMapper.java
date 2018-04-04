@@ -41,6 +41,8 @@ public class BookingDetailsRowMapper implements RowMapper<BookingDetailsResponse
 		response.setNoOfAdults(rs.getInt("adults"));
 		response.setNoOfChildren(rs.getInt("children"));
 		response.setDescription(rs.getString("description"));
+		response.setSource(rs.getString("sources"));
+		response.setDestination(rs.getString("destination"));
 		
 		return response;
 	}

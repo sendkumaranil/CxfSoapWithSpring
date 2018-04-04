@@ -70,6 +70,12 @@ public class PdfTableBuilder {
         table.addCell(createLabelCellRow2("Duration:"));        
         table.addCell(createValueCellRow2(data.getDuration()));
         
+        table.addCell(createLabelCellRow1("Source:"));        
+        table.addCell(createValueCellRow1(data.getSource()));
+        
+        table.addCell(createLabelCellRow2("Destination:"));        
+        table.addCell(createValueCellRow2(data.getDestination()));
+        
         table.addCell(createLabelCellRow1("Boarding Airport:"));        
         table.addCell(createValueCellRow1(data.getBoardingAirport()));
         

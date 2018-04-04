@@ -70,7 +70,7 @@ public class MoryaAirlinesDaoImpl  implements MoryaAirlinesDao{
 	}
 	
 	public BookingDetailsResponse getBookingDetails(BookingDetailsRequest request) {
-		String fetchBookingDetailSql="select flight.flightid,flight.flightname,flight.depttime,flight.arrivaltime," + 
+		String fetchBookingDetailSql="select flight.flightid,flight.flightname,flight.depttime,flight.arrivaltime,flight.sources,flight.destination," + 
 				"flight.nostop,flight.stopageairport,booking.totalFare,booking.bookingdate,booking.adults,booking.children,booking.govtid,booking.govtidtype,booking.boardingairport,booking.arrivalairport," + 
 				"booking.passengername,booking.travelclass,booking.traveldate,booking.description from moryaflights.flightsdetails flight inner join moryaflights.bookingdetails booking " + 
 				"on flight.flightid=booking.flightid where booking.govtid=? and booking.flightid=? and booking.traveldate=?";

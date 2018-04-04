@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
 @XmlType(propOrder= {"fault","bookingDate","flightId","flightName","deptTime",
-		"arrivalTime","duration","totalFare","travelClass","departDate","boardingAirport",
+		"arrivalTime","duration","totalFare","travelClass","departDate","source","destination","boardingAirport",
 		"arrivalAirport","stops","stopageAirports","noOfAdults","noOfChildren","govtIdentityId",
 		"govtIdentityType","passengerList","description","fileContentId"})
 public class BookingDetailsResponse {
@@ -22,6 +22,8 @@ public class BookingDetailsResponse {
 	private BigDecimal totalFare;
 	private String travelClass;
 	private String departDate;
+	private String source;
+	private String destination;
 	private String boardingAirport;
 	private String arrivalAirport;
 	private Integer stops;
@@ -161,5 +163,17 @@ public class BookingDetailsResponse {
 	}
 	public void setFileContentId(String fileContentId) {
 		this.fileContentId = fileContentId;
+	}
+	public String getSource() {
+		return source;
+	}
+	public void setSource(String source) {
+		this.source = source;
+	}
+	public String getDestination() {
+		return destination;
+	}
+	public void setDestination(String destination) {
+		this.destination = destination;
 	}
 }
